@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://qjkp25ydma1p"]
+
+[ext_resource type="Script" uid="uid://72ew5qv0pi47" path="res://control.gd" id="1_62e2m"]
+[ext_resource type="Script" uid="uid://p5quapdrvvh1" path="res://overlay_window.gd" id="1_qtu10"]
+
+[node name="Control" type="Control" unique_id=1295675772]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_62e2m")
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1884871788]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+file_mode = 0
+access = 2
+
+[node name="OverlayWindow" type="Window" parent="." unique_id=1059361936]
+transparent_bg = true
+oversampling_override = 1.0
+mode = 3
+title = "ImageOverlayWindow"
+initial_position = 1
+size = Vector2i(1152, 720)
+wrap_controls = true
+exclusive = true
+borderless = true
+always_on_top = true
+transparent = true
+mouse_passthrough = true
+script = ExtResource("1_qtu10")
+
+[node name="ColorRect" type="ColorRect" parent="OverlayWindow" unique_id=2101930544]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39607844)
+
+[node name="imageOverlay" type="Sprite2D" parent="OverlayWindow" unique_id=472817125]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=648491223]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39607844)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=93216905]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ToggleBgButton" type="Button" parent="VBoxContainer" unique_id=906738351]
+layout_mode = 2
+text = "Toggle Background"
+
+[node name="OpenButton" type="Button" parent="VBoxContainer" unique_id=816767557]
+layout_mode = 2
+text = "Open Image"
+
+[node name="OpacityContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=75890962]
+layout_mode = 2
+
+[node name="OpacityLabel" type="Label" parent="VBoxContainer/OpacityContainer" unique_id=1802054823]
+layout_mode = 2
+text = "Image Opacity: "
+
+[node name="OpacityHSlider" type="HSlider" parent="VBoxContainer/OpacityContainer" unique_id=1621093039]
+custom_minimum_size = Vector2(260, 25)
+layout_mode = 2
+value = 100.0
+ticks_position = 3
+
+[node name="ScaleContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=807072280]
+layout_mode = 2
+
+[node name="ScaleLabel" type="Label" parent="VBoxContainer/ScaleContainer" unique_id=847846254]
+layout_mode = 2
+text = "Image Scale: "
+
+[node name="ScaleHSlider" type="HSlider" parent="VBoxContainer/ScaleContainer" unique_id=1084436790]
+custom_minimum_size = Vector2(260, 25)
+layout_mode = 2
+value = 1.0
+
+[node name="PositionContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1078355536]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PositionContainer" unique_id=1206730132]
+layout_mode = 2
+
+[node name="XContainer" type="HBoxContainer" parent="VBoxContainer/PositionContainer/VBoxContainer" unique_id=511064884]
+layout_mode = 2
+
+[node name="PosXLabel" type="Label" parent="VBoxContainer/PositionContainer/VBoxContainer/XContainer" unique_id=952190895]
+layout_mode = 2
+text = "Pos X: "
+
+[node name="PosXHSlider" type="HSlider" parent="VBoxContainer/PositionContainer/VBoxContainer/XContainer" unique_id=1072371196]
+custom_minimum_size = Vector2(260, 25)
+layout_mode = 2
+
+[node name="PosXLineEdit" type="LineEdit" parent="VBoxContainer/PositionContainer/VBoxContainer/XContainer" unique_id=1767371978]
+layout_mode = 2
+text = "0"
+max_length = 3
+
+[node name="YContainer" type="HBoxContainer" parent="VBoxContainer/PositionContainer/VBoxContainer" unique_id=1304323652]
+layout_mode = 2
+
+[node name="PosYLabel" type="Label" parent="VBoxContainer/PositionContainer/VBoxContainer/YContainer" unique_id=1472077520]
+layout_mode = 2
+text = "Pos Y: "
+
+[node name="PosYHSlider" type="HSlider" parent="VBoxContainer/PositionContainer/VBoxContainer/YContainer" unique_id=2123405845]
+custom_minimum_size = Vector2(260, 25)
+layout_mode = 2
+
+[node name="PosYLineEdit" type="LineEdit" parent="VBoxContainer/PositionContainer/VBoxContainer/YContainer" unique_id=748387120]
+layout_mode = 2
+text = "0"
+max_length = 3
+
+[connection signal="startFileDialog" from="." to="." method="_on_start_file_dialog"]
+[connection signal="confirmed" from="FileDialog" to="." method="_on_file_dialog_confirmed"]
+[connection signal="file_selected" from="FileDialog" to="OverlayWindow" method="_on_file_dialog_file_selected"]
+[connection signal="close_requested" from="OverlayWindow" to="OverlayWindow" method="_on_close_requested"]
+[connection signal="pressed" from="VBoxContainer/ToggleBgButton" to="OverlayWindow" method="_on_toggle_bg_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OpenButton" to="OverlayWindow" method="_on_open_button_pressed"]
+[connection signal="value_changed" from="VBoxContainer/OpacityContainer/OpacityHSlider" to="OverlayWindow" method="_on_opacity_h_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ScaleContainer/ScaleHSlider" to="OverlayWindow" method="_on_scale_h_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/PositionContainer/VBoxContainer/XContainer/PosXHSlider" to="OverlayWindow" method="_on_pos_xh_slider_value_changed"]
+[connection signal="text_submitted" from="VBoxContainer/PositionContainer/VBoxContainer/XContainer/PosXLineEdit" to="OverlayWindow" method="_on_pos_x_line_edit_text_submitted"]
+[connection signal="value_changed" from="VBoxContainer/PositionContainer/VBoxContainer/YContainer/PosYHSlider" to="OverlayWindow" method="_on_pos_yh_slider_value_changed"]
+[connection signal="text_submitted" from="VBoxContainer/PositionContainer/VBoxContainer/YContainer/PosYLineEdit" to="OverlayWindow" method="_on_pos_y_line_edit_text_submitted"]
