@@ -10,10 +10,13 @@ config_version=5
 
 [application]
 
-config/name="TransparacyExample"
+config/name="Image Overlay Tool"
+config/description="Image overlay tool intended to be used for tracing or general guide.
+Created by 3rd."
 run/main_scene="res://control.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://bhliww6wrf75c"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 

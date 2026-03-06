@@ -7,6 +7,7 @@ extends Control
 @onready var posYEdit: LineEdit = $VBoxContainer/PositionContainer/VBoxContainer/YContainer/PosYLineEdit
 @onready var global:Node = $"/root/Global"
 
+@warning_ignore("unused_signal")
 signal startFileDialog
 
 func _ready() -> void:
@@ -19,4 +20,19 @@ func _on_start_file_dialog() -> void:
 	fileDialog.show()
 
 func resetYEdit():
-	posYEdit.set_text(str(posYSlider.get_value()))
+	posYEdit.set_text(str(int(posYSlider.get_value())))
+	
+func updateYSlider(newValue: int):
+	posYSlider.set_value(newValue)
+	
+func updateYEdit(newValue: int):
+	posYEdit.set_text(str(newValue))
+	
+func resetXEdit():
+	posXEdit.set_text(str(int(posXSlider.get_value())))
+	
+func updateXSlider(newValue: int):
+	posXSlider.set_value(newValue)
+	
+func updateXEdit(newValue: int):
+	posXEdit.set_text(str(newValue))

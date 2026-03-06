@@ -93,6 +93,7 @@ text = "Image Scale: "
 [node name="ScaleHSlider" type="HSlider" parent="VBoxContainer/ScaleContainer" unique_id=1084436790]
 custom_minimum_size = Vector2(260, 25)
 layout_mode = 2
+step = 0.1
 value = 1.0
 
 [node name="PositionContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1078355536]

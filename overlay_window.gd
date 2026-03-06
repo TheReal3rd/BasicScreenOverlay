@@ -42,7 +42,6 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		printerr("Failed to open file due to not being the correct file type.")
 		return
 
-
 func _on_open_button_pressed() -> void:
 	get_parent().emit_signal("startFileDialog")
 
@@ -58,19 +57,30 @@ func _on_scale_h_slider_value_changed(value: float) -> void:
 func _on_pos_xh_slider_value_changed(value: float) -> void:
 	var newX:float = mathUtils.fromPercentage(value, 0, windowSize.x)
 	imageSprite.global_position.x = newX
+	var mainControl: Control = Global.getMainControl()
+	if mainControl:
+		mainControl.updateXEdit(int(value))
 
 func _on_pos_yh_slider_value_changed(value: float) -> void:
 	var newX:float = mathUtils.fromPercentage(value, 0, windowSize.y)
 	imageSprite.global_position.y = newX
+	var mainControl: Control = Global.getMainControl()
+	if mainControl:
+		mainControl.updateYEdit(int(value))
 	
 func _on_pos_y_line_edit_text_submitted(new_text: String) -> void:
-	if typeof(new_text) == TYPE_INT:
-		pass
-	else:
-		var mainControl: Control = Global.getMainControl()
-		if mainControl:
+	var mainControl: Control = Global.getMainControl()
+	if mainControl:
+		if typeof(new_text.to_int()) == TYPE_INT:
+			mainControl.updateYSlider(int(new_text))
+		else:
 			mainControl.resetYEdit()
 		
 
 func _on_pos_x_line_edit_text_submitted(new_text: String) -> void:
-	pass
+	var mainControl: Control = Global.getMainControl()
+	if mainControl:
+		if typeof(new_text.to_int()) == TYPE_INT:
+			mainControl.updateXSlider(int(new_text))
+		else:
+			mainControl.resetXEdit()
